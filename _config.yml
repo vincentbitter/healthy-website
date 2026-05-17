@@ -1,0 +1,12 @@
+title: Healthy
+slogan: Health check endpoints for WordPress
+description: Healthy Website
+domain: vincentbitter.github.io
+url: https://vincentbitter.github.io/healthy-website
+baseurl: /healthy-website
+sass:
+  style: compressed
+markdown: kramdown
+paginate: 6
+paginate_path: "/news/p/page:num/"
+permalink: /news/:year/:slug/

@@ -1,0 +1,21 @@
+---
+layout: default
+title: News
+---
+
+<h2>News</h2>
+<div class="columns-3">
+  {% for post in paginator.posts %}
+  {% include news-item.html %}
+  {% endfor %}
+</div>
+
+<div class="pagination buttons">
+  {% if paginator.previous_page %}
+  <a class="button-secondary" href="{{ paginator.previous_page_path | relative_url }}">← Newer posts</a>
+  {% endif %}
+
+  {% if paginator.next_page %}
+  <a class="button-secondary" href="{{ paginator.next_page_path | relative_url }}">Older posts →</a>
+  {% endif %}
+</div>

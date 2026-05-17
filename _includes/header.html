@@ -1,0 +1,33 @@
+{% if page.hero %}
+<header class="site-header has-hero">
+{% else %}
+<header class="site-header">
+    {% endif %}
+    <div class="header-inner">
+
+        {% if page.hero %}
+        <div class="hero-header"></div>
+        {% else %}
+        <a href="{{ '/' | relative_url }}" class="header-logo">
+            <h1>
+                <img src="{{ '/assets/img/logo.svg' | relative_url }}" alt="{{site.title}}">
+            </h1>
+        </a>
+        {% endif %}
+
+        <input type="checkbox" id="nav-toggle" class="nav-checkbox">
+        <label for="nav-toggle" class="nav-toggle nav" aria-label="Toggle menu">
+            <span class="nav-open">☰</span>
+            <span class="nav-close">✕</span>
+            <div class="nav-close-overlay"></div>
+        </label>
+
+        <nav class="header-nav">
+            <a href="{{ '/news' | relative_url }}">News</a>
+            <a href="{{ '/features' | relative_url }}">Features</a>
+            <a href="{{ '/docs' | relative_url }}">Docs</a>
+            <a href="{{ '/faq' | relative_url }}">FAQ</a>
+            <a href="{{ '/#get' | relative_url }}" class="button-primary" onclick="document.getElementById('nav-toggle').checked = false">Get Healthy</a>
+        </nav>
+    </div>
+</header>
