@@ -1,0 +1,6 @@
+{
+  "name": "Healthy Website",
+  "image": "mcr.microsoft.com/devcontainers/ruby",
+  "forwardPorts": [4000],
+  "postCreateCommand": "bundle install"
+}
