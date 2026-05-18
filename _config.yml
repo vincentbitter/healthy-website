@@ -2,8 +2,8 @@ title: Healthy
 slogan: Health check endpoints for WordPress
 description: Healthy Website
 domain: vincentbitter.github.io
-url: https://vincentbitter.github.io/healthy-website
-baseurl: /healthy-website
+url: https://healthy.vincentbitter.nl
+baseurl: /
 sass:
   style: compressed
 markdown: kramdown
