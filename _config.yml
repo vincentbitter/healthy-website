@@ -1,6 +1,6 @@
 title: Healthy
 slogan: Health check endpoints for WordPress
-description: Healthy Website
+description: Add reliable health check endpoints to WordPress with Healthy. Perfect for uptime monitoring, automated infrastructure checks and Kubernetes readiness.
 
 domain: healthy.vincentbitter.nl
 url: https://healthy.vincentbitter.nl
