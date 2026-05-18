@@ -140,20 +140,21 @@ h2 {
 ------------------------------------------------------- */
 .buttons {
   text-align: center;
+  margin: calc($space-md/-2);
 
-  a + a {
-    margin-left: $space-md;
+  a {
+    margin: calc($space-md/2);
   }
 }
 
 * + .buttons {
-  margin-top: $space-lg;
+  padding-top: $space-lg;
 }
 
 .button-primary,
 .button-secondary {
   display: inline-block;
-  padding: $space-sm $space-lg;
+  padding: $space-sm $space-md;
   border-radius: $radius;
   text-decoration: none;
   font-weight: bold;
