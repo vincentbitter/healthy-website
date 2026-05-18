@@ -1,12 +1,18 @@
 title: Healthy
 slogan: Health check endpoints for WordPress
 description: Healthy Website
+
 domain: healthy.vincentbitter.nl
 url: https://healthy.vincentbitter.nl
-baseurl: /
+baseurl: 
+
 sass:
   style: compressed
 markdown: kramdown
+
+plugins:
+  - jekyll-paginate
+
 paginate: 6
 paginate_path: "/news/p/page:num/"
 permalink: /news/:year/:slug/
