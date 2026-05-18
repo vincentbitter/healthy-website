@@ -193,7 +193,9 @@ h2 {
 }
 
 .section {
-  margin: 0 #{-$space-lg};
+  margin: 0 #{-$space-md};
+  padding: $space-lg 0;
+  background: white;
 
   @include desktop {
     width: 100vw;
@@ -203,9 +205,6 @@ h2 {
     margin-left: -50vw;
     margin-right: -50vw;
   }
-
-  padding: $space-lg 0;
-  background: white;
 
   &.section--alt {
     background: #fafafa;
