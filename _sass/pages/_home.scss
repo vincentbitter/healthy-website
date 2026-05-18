@@ -1,0 +1,9 @@
+@use "variables" as *;
+
+.get-healthy .section-inner {
+  max-width: $bp-tablet;
+
+  p {
+    text-align: center;
+  }
+}

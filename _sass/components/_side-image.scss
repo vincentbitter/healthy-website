@@ -1,0 +1,36 @@
+@use "variables" as *;
+@use "mixins" as *;
+
+.section--side-image-left {
+    display: grid;
+
+    @include desktop {
+        grid-template-columns: repeat(2, 1fr);
+        align-items: stretch;
+    }
+}
+
+.side-image {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 50vw;
+
+    @include desktop {
+        margin: -$space-lg 0;
+        height: auto;
+        min-height: 100%;
+    }
+}
+
+.right-from-side-image {
+    @include desktop {
+        max-width: calc($max-width / 2);
+    }
+
+    @include mobile-and-tablet() {
+        h2 {
+            margin-top: $space-lg;
+        }
+    }
+}

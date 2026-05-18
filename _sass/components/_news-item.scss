@@ -1,0 +1,11 @@
+@use "variables" as *;
+
+.news-item {
+  .subtle {
+    margin-bottom: $space-sm;
+  }
+
+  p {
+    margin: 0;
+  }
+}

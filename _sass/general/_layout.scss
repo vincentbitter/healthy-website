@@ -1,0 +1,37 @@
+@use "variables" as *;
+@use "mixins" as *;
+
+.page-content {
+    max-width: $max-width;
+    margin: $space-lg auto;
+    padding: 0 $space-md;
+
+    >.section:first-child {
+        padding-top: 0;
+    }
+}
+
+.section {
+    margin: 0 #{-$space-md};
+    padding: $space-lg 0;
+    background: white;
+
+    @include desktop {
+        width: 100vw;
+        position: relative;
+        left: 50%;
+        right: 50%;
+        margin-left: -50vw;
+        margin-right: -50vw;
+    }
+
+    &.section--alt {
+        background: #fafafa;
+    }
+
+    .section-inner {
+        max-width: $max-width;
+        margin: 0 auto;
+        padding: 0 $space-lg;
+    }
+}

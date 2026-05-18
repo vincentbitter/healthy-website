@@ -1,0 +1,43 @@
+@use "variables" as *;
+
+.buttons {
+    text-align: center;
+    margin: calc($space-md/-2);
+
+    a {
+        margin: calc($space-md/2);
+    }
+}
+
+*+.buttons {
+    padding-top: $space-lg;
+}
+
+.button-primary,
+.button-secondary {
+    display: inline-block;
+    padding: $space-sm $space-md;
+    border-radius: $radius;
+    text-decoration: none;
+    font-weight: bold;
+    transition: 0.2s ease;
+    text-align: center;
+}
+
+.button-primary {
+    background: $green;
+    color: white;
+
+    &:hover {
+        background: $green-light;
+    }
+}
+
+.button-secondary {
+    background: white;
+    color: $green;
+
+    &:hover {
+        background: #f0f0f0;
+    }
+}

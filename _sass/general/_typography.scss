@@ -1,0 +1,13 @@
+@use "variables" as *;
+
+h2 {
+  text-align: center;
+  font-size: $fs-xl;
+  margin-top: 0;
+  margin-bottom: $space-md;
+}
+
+.subtle {
+  color: $text-light;
+  font-size: $fs-sm;
+}
