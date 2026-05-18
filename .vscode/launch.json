@@ -2,10 +2,10 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Jekyll Serve",
+      "name": "Start server",
       "type": "node-terminal",
       "request": "launch",
-      "command": "bundle exec jekyll serve --livereload"
+      "command": "if [ -n \"$CODESPACES\" ]; then echo 'Running in Codespaces'; browser-sync start --proxy 'localhost:4000' --files '_site/**/*' --port 4001 --socket.port 443 --socket.domain ${CODESPACE_NAME}-4001.app.github.dev & bundle exec jekyll serve; else echo 'Running locally'; bundle exec jekyll serve --livereload; python3 -m webbrowser \"http://localhost:4000\"; fi"
     }
   ]
 }

@@ -1,6 +1,14 @@
 {
   "name": "Healthy Website",
   "image": "mcr.microsoft.com/devcontainers/ruby",
-  "forwardPorts": [4000],
-  "postCreateCommand": "bundle install"
+  "forwardPorts": [
+    4000,
+    4001
+  ],
+  "postCreateCommand": "npm install -g browser-sync && bundle install",
+  "features": {
+    "ghcr.io/devcontainers/features/node:2.0.0": {
+      "version": "26.1.0"
+    }
+  }
 }
