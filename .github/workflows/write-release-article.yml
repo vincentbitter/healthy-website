@@ -110,7 +110,7 @@ jobs:
 
       - name: Copy release-description.sh into plugin repo
         run: |
-          cp .github/release-description.sh plugin/
+          cp website/.github/release-description.sh plugin/
           chmod +x plugin/release-description.sh
 
       - name: Write news article
