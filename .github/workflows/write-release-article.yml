@@ -76,17 +76,17 @@ jobs:
           echo "EOF" >> $GITHUB_OUTPUT
           echo "date=$DATE" >> $GITHUB_OUTPUT
 
-          - name: Create changelog file
-            run: |
-              VERSION="${{ steps.data.outputs.version }}"
-              DATE="${{ steps.release.outputs.date }}"
-              BODY="${{ steps.release.outputs.body }}"
+      - name: Create changelog file
+        run: |
+          VERSION="${{ steps.data.outputs.version }}"
+          DATE="${{ steps.release.outputs.date }}"
+          BODY="${{ steps.release.outputs.body }}"
 
-              sed -e "s/{{VERSION}}/$VERSION/g" \
-                  -e "s/{{DATE}}/$DATE/g" \
-                  -e "s|{{BODY}}|$BODY|g" \
-                  website/.github/changelog-template.md \
-                > "website/_changelogs/$VERSION.md"
+          sed -e "s/{{VERSION}}/$VERSION/g" \
+              -e "s/{{DATE}}/$DATE/g" \
+              -e "s|{{BODY}}|$BODY|g" \
+              website/.github/changelog-template.md \
+            > "website/_changelogs/$VERSION.md"
 
       - name: Check if news file already exists
         id: exists
