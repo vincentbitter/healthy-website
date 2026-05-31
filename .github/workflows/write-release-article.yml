@@ -55,6 +55,11 @@ jobs:
           repository: vincentbitter/healthy
           path: plugin
 
+      - name: Assure content folders
+        run: |
+          mkdir -p website/_changelogs
+          mkdir -p website/_posts
+
       - name: Fetch latest Healthy release
         id: release
         run: |
@@ -74,7 +79,7 @@ jobs:
       - name: Create changelog file
         run: |
           FILE="website/_changelogs/${{ steps.data.outputs.version }}.md"
-          cat > "$FILE" <<EOF
+          cat > "$FILE" <<'EOF'
 ---
 layout: post
 title: "Healthy ${{ steps.data.outputs.version }}"
@@ -147,7 +152,7 @@ EOF
         if: steps.exists.outputs.exists == 'false'
         run: |
           FILE="website/_posts/${{ steps.release.outputs.date }}-${{ steps.article.outputs.slug }}.md"
-          cat > "$FILE" <<EOF
+          cat > "$FILE" <<'EOF'
 ---
 layout: post
 title: "${{ steps.article.outputs.title }}"
