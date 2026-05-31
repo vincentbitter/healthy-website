@@ -1,13 +1,13 @@
 ---
 layout: post
-title: "{{TITLE}}"
-date: {{DATE}}
-excerpt: "{{EXCERPT}}"
+title: "$TITLE"
+date: $DATE
+excerpt: "$EXCERPT"
 ---
 
-{{BODY}}
+$BODY
 
-## Changes since {{PREVIOUS}}
+## Changes since $PREVIOUS
 
 ```diff
-{% include_relative ../_changelogs/{{VERSION}}.md %}
+{% include_relative ../_changelogs/$VERSION.md %}

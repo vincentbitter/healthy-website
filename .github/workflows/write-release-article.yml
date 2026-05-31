@@ -78,14 +78,12 @@ jobs:
 
       - name: Create changelog file
         run: |
-          VERSION="${{ steps.data.outputs.version }}"
-          DATE="${{ steps.release.outputs.date }}"
-          BODY="${{ steps.release.outputs.body }}"
+          mkdir -p website/_changelogs
+          export VERSION="${{ steps.data.outputs.version }}"
+          export DATE="${{ steps.release.outputs.date }}"
+          export BODY="${{ steps.release.outputs.body }}"
 
-          sed -e "s/{{VERSION}}/$VERSION/g" \
-              -e "s/{{DATE}}/$DATE/g" \
-              -e "s|{{BODY}}|$BODY|g" \
-              website/.github/changelog-template.md \
+          envsubst < website/.github/changelog-template.md \
             > "website/_changelogs/$VERSION.md"
 
       - name: Check if news file already exists
@@ -150,22 +148,16 @@ jobs:
         if: steps.exists.outputs.exists == 'false'
         run: |
           mkdir -p website/_posts
-          VERSION="${{ steps.data.outputs.version }}"
-          DATE="${{ steps.release.outputs.date }}"
-          TITLE="${{ steps.article.outputs.title }}"
-          EXCERPT="${{ steps.article.outputs.excerpt }}"
-          BODY="${{ steps.article.outputs.body }}"
-          PREVIOUS="${{ steps.previous.outputs.previous }}"
+          export VERSION="${{ steps.data.outputs.version }}"
+          export DATE="${{ steps.release.outputs.date }}"
+          export TITLE="${{ steps.article.outputs.title }}"
+          export EXCERPT="${{ steps.article.outputs.excerpt }}"
+          export BODY="${{ steps.article.outputs.body }}"
+          export PREVIOUS="${{ steps.previous.outputs.previous }}"
 
-          sed -e "s/{{VERSION}}/$VERSION/g" \
-              -e "s/{{DATE}}/$DATE/g" \
-              -e "s/{{TITLE}}/$TITLE/g" \
-              -e "s/{{EXCERPT}}/$EXCERPT/g" \
-              -e "s|{{BODY}}|$BODY|g" \
-              -e "s/{{PREVIOUS}}/$PREVIOUS/g" \
-              website/.github/news-template.md \
+          envsubst < website/.github/release-news-template.md \
             > "website/_posts/${DATE}-${{ steps.article.outputs.slug }}.md"
-
+          
       - name: Create PR
         uses: peter-evans/create-pull-request@v8
         with:
