@@ -1,4 +1,4 @@
-name: Process Release
+name: Write release article
 
 on:
   repository_dispatch:
