@@ -46,12 +46,14 @@ jobs:
 
       - name: Checkout website repo
         uses: actions/checkout@v6
-        path: website
+        with:
+          path: website
       
       - name: Checkout Healthy repo
         uses: actions/checkout@v6
-        repository: vincentbitter/healthy
-        path: plugin
+        with:
+          repository: vincentbitter/healthy
+          path: plugin
 
       - name: Fetch latest Healthy release
         id: release
