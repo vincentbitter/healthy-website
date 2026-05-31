@@ -76,18 +76,17 @@ jobs:
           echo "EOF" >> $GITHUB_OUTPUT
           echo "date=$DATE" >> $GITHUB_OUTPUT
 
-      - name: Create changelog file
-        run: |
-          FILE="website/_changelogs/${{ steps.data.outputs.version }}.md"
-          cat <<'EOF' > "$FILE"
----
-layout: post
-title: "Healthy ${{ steps.data.outputs.version }}"
-date: ${{ steps.release.outputs.date }}
-excerpt: "Changelog for Healthy ${{ steps.data.outputs.version }}."
----
-${{ steps.release.outputs.body }}
-EOF
+          - name: Create changelog file
+            run: |
+              VERSION="${{ steps.data.outputs.version }}"
+              DATE="${{ steps.release.outputs.date }}"
+              BODY="${{ steps.release.outputs.body }}"
+
+              sed -e "s/{{VERSION}}/$VERSION/g" \
+                  -e "s/{{DATE}}/$DATE/g" \
+                  -e "s|{{BODY}}|$BODY|g" \
+                  website/.github/changelog-template.md \
+                > "website/_changelogs/$VERSION.md"
 
       - name: Check if news file already exists
         id: exists
@@ -147,27 +146,25 @@ EOF
           echo "$BODY" >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
 
-
       - name: Create news file
         if: steps.exists.outputs.exists == 'false'
         run: |
-          FILE="website/_posts/${{ steps.release.outputs.date }}-${{ steps.article.outputs.slug }}.md"
-          cat <<'EOF' > "$FILE"
----
-layout: post
-title: "${{ steps.article.outputs.title }}"
-date: ${{ steps.release.outputs.date }}
-excerpt: "${{ steps.article.outputs.excerpt }}"
----
+          mkdir -p website/_posts
+          VERSION="${{ steps.data.outputs.version }}"
+          DATE="${{ steps.release.outputs.date }}"
+          TITLE="${{ steps.article.outputs.title }}"
+          EXCERPT="${{ steps.article.outputs.excerpt }}"
+          BODY="${{ steps.article.outputs.body }}"
+          PREVIOUS="${{ steps.previous.outputs.previous }}"
 
-${{ steps.article.outputs.body }}
-
-## Changes since ${{ steps.previous.outputs.previous }}
-
-\`\`\`diff
-{% include_relative ../_changelogs/${{ steps.data.outputs.version }}.md %}
-\`\`\`
-EOF
+          sed -e "s/{{VERSION}}/$VERSION/g" \
+              -e "s/{{DATE}}/$DATE/g" \
+              -e "s/{{TITLE}}/$TITLE/g" \
+              -e "s/{{EXCERPT}}/$EXCERPT/g" \
+              -e "s|{{BODY}}|$BODY|g" \
+              -e "s/{{PREVIOUS}}/$PREVIOUS/g" \
+              website/.github/news-template.md \
+            > "website/_posts/${DATE}-${{ steps.article.outputs.slug }}.md"
 
       - name: Create PR
         uses: peter-evans/create-pull-request@v8
