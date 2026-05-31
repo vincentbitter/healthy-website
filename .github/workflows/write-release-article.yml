@@ -79,7 +79,7 @@ jobs:
       - name: Create changelog file
         run: |
           FILE="website/_changelogs/${{ steps.data.outputs.version }}.md"
-          cat > "$FILE" <<'EOF'
+          cat <<'EOF' > "$FILE"
 ---
 layout: post
 title: "Healthy ${{ steps.data.outputs.version }}"
@@ -152,7 +152,7 @@ EOF
         if: steps.exists.outputs.exists == 'false'
         run: |
           FILE="website/_posts/${{ steps.release.outputs.date }}-${{ steps.article.outputs.slug }}.md"
-          cat > "$FILE" <<'EOF'
+          cat <<'EOF' > "$FILE"
 ---
 layout: post
 title: "${{ steps.article.outputs.title }}"
