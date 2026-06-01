@@ -6,15 +6,6 @@ on:
 
   workflow_dispatch:
     inputs:
-      version:
-        description: "Release version (e.g. v1.4.0)"
-        required: true
-      published_at:
-        description: "Release date"
-        required: true
-      url:
-        description: "Release URL"
-        required: true
       url_json:
         description: "Release URL JSON"
         required: true
@@ -31,23 +22,30 @@ jobs:
       - name: Get received data
         id: data
         run: |
-          RELEASE_VERSION="${{ github.event.client_payload.version || inputs.version }}"
-          RELEASE_DATE="${{ github.event.client_payload.published_at || inputs.published_at }}"
-          RELEASE_URL="${{ github.event.client_payload.url || inputs.url }}"
           RELEASE_URL_JSON="${{ github.event.client_payload.url_json || inputs.url_json }}"
-          echo "Version: $RELEASE_VERSION"
-          echo "Published: $RELEASE_DATE"
-          echo "URL: $RELEASE_URL"
           echo "URL JSON: $RELEASE_URL_JSON"
-          echo "version=$RELEASE_VERSION" >> "$GITHUB_OUTPUT"
-          echo "published_at=$RELEASE_DATE" >> "$GITHUB_OUTPUT"
-          echo "url=$RELEASE_URL" >> "$GITHUB_OUTPUT"
           echo "url_json=$RELEASE_URL_JSON" >> "$GITHUB_OUTPUT"
 
       - name: Checkout website repo
         uses: actions/checkout@v6
         with:
           path: website
+
+      - name: Fetch latest Healthy release
+        id: release
+        run: |
+          RELEASE=$(curl -s "${{ steps.data.outputs.url_json }}")
+          TAG=$(echo "$RELEASE" | jq -r .tag_name)
+          VERSION=$(echo "$RELEASE" | jq -r .tag_name)
+          BODY=$(echo "$RELEASE" | jq -r .body)
+          DATE=$(date +"%Y-%m-%d")
+
+          echo "tag=$TAG" >> $GITHUB_OUTPUT
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "body<<EOF" >> $GITHUB_OUTPUT
+          echo "$BODY" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+          echo "date=$DATE" >> $GITHUB_OUTPUT
       
       - name: Checkout Healthy repo
         uses: actions/checkout@v6
@@ -62,26 +60,10 @@ jobs:
           mkdir -p website/_changelogs
           mkdir -p website/_posts
 
-      - name: Fetch latest Healthy release
-        id: release
-        run: |
-          RELEASE=$(curl -s "${{ steps.data.outputs.url_json }}")
-          TAG=$(echo "$RELEASE" | jq -r .tag_name)
-          NAME=$(echo "$RELEASE" | jq -r .name)
-          BODY=$(echo "$RELEASE" | jq -r .body)
-          DATE=$(date +"%Y-%m-%d")
-
-          echo "tag=$TAG" >> $GITHUB_OUTPUT
-          echo "name=$NAME" >> $GITHUB_OUTPUT
-          echo "body<<EOF" >> $GITHUB_OUTPUT
-          echo "$BODY" >> $GITHUB_OUTPUT
-          echo "EOF" >> $GITHUB_OUTPUT
-          echo "date=$DATE" >> $GITHUB_OUTPUT
-
       - name: Create changelog file
         run: |
           mkdir -p website/_changelogs
-          export VERSION="${{ steps.data.outputs.version }}"
+          export VERSION="${{ steps.release.outputs.version }}"
           export DATE="${{ steps.release.outputs.date }}"
           export BODY="${{ steps.release.outputs.body }}"
 
@@ -91,7 +73,7 @@ jobs:
       - name: Check if news file already exists
         id: exists
         run: |
-          FILE="website/_posts/${{ steps.release.outputs.date }}-${{ steps.release.outputs.tag }}.md"
+          FILE="website/_posts/${{ steps.release.outputs.date }}-${{ steps.release.outputs.version }}.md"
           if [ -f "$FILE" ]; then
             echo "exists=true" >> $GITHUB_OUTPUT
           else
@@ -152,7 +134,7 @@ jobs:
         if: steps.exists.outputs.exists == 'false'
         run: |
           mkdir -p website/_posts
-          export VERSION="${{ steps.data.outputs.version }}"
+          export VERSION="${{ steps.release.outputs.version }}"
           export DATE="${{ steps.release.outputs.date }}"
           export TITLE="${{ steps.article.outputs.title }}"
           export EXCERPT="${{ steps.article.outputs.excerpt }}"
@@ -166,11 +148,11 @@ jobs:
         uses: peter-evans/create-pull-request@v8
         with:
           path: website
-          commit-message: "docs(news): add release ${{ steps.data.outputs.version }}"
-          branch: "news/release-${{ steps.data.outputs.version }}"
-          title: "Add news item for release ${{ steps.data.outputs.version }}"
+          commit-message: "docs(news): add release ${{ steps.release.outputs.version }}"
+          branch: "news/release-${{ steps.release.outputs.version }}"
+          title: "Add news item for release ${{ steps.release.outputs.version }}"
           body: |
-            Changelog and automatically generated news item for Healthy release **${{ steps.get_received_data.outputs.version }}**.
+            Changelog and automatically generated news item for Healthy release **${{ steps.release.outputs.version }}**.
 
             Includes:
             - Release notes
