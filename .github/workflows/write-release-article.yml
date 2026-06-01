@@ -53,6 +53,8 @@ jobs:
         uses: actions/checkout@v6
         with:
           repository: vincentbitter/healthy
+          ref: ${{ steps.release.outputs.tag }}
+          fetch-depth: 0
           path: plugin
 
       - name: Assure content folders
