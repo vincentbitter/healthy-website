@@ -118,6 +118,8 @@ jobs:
       - name: Write news article
         id: article
         if: steps.exists.outputs.exists == 'false'
+        env:
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
         run: |
           BASE="${{ steps.previous.outputs.previous }}"
           HEAD="${{ steps.release.outputs.tag }}"
