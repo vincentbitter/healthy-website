@@ -51,7 +51,7 @@ hero: true
     </ol>
 
     <div class="buttons">
-      <a href="https://github.com/vincentbitter/healthy/releases" class="button-primary">Download Healthy</a>
+      <a href="https://github.com/vincentbitter/healthy/releases/latest" class="button-primary">Download Healthy</a>
     </div>
   </div>
 </section>
