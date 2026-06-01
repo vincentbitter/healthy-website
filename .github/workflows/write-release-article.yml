@@ -120,7 +120,7 @@ jobs:
           BASE="${{ steps.previous.outputs.previous }}"
           HEAD="${{ steps.release.outputs.tag }}"
           cd plugin
-          OUTPUT=$(./release-description.sh "$BASE" "$HEAD")
+          OUTPUT=$(./release-description.sh $BASE $HEAD)
           cd ..
           echo "$OUTPUT"
 
