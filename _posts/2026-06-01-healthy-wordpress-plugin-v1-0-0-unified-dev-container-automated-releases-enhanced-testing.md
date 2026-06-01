@@ -15,3 +15,4 @@ Under the hood, we've modernized our toolchain with Node.js v26, esbuild v0.28, 
 
 ```diff
 {% include_relative ../_changelogs/v1.0.0.md %}
+```
