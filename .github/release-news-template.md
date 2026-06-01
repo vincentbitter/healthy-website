@@ -9,6 +9,4 @@ $BODY
 
 ## Changes since $PREVIOUS
 
-```diff
-{% include_relative ../_changelogs/$VERSION.md %}
-```
+{% include changelogs/$VERSION.md %}

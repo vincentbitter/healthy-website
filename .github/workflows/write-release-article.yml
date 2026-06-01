@@ -57,28 +57,33 @@ jobs:
 
       - name: Assure content folders
         run: |
+          mkdir -p website/_includes/changelogs
           mkdir -p website/_changelogs
           mkdir -p website/_posts
 
-      - name: Create changelog file
-        run: |
-          mkdir -p website/_changelogs
-          export VERSION="${{ steps.release.outputs.version }}"
-          export DATE="${{ steps.release.outputs.date }}"
-          export BODY="${{ steps.release.outputs.body }}"
-
-          envsubst < website/.github/changelog-template.md \
-            > "website/_changelogs/$VERSION.md"
-
-      - name: Check if news file already exists
+      - name: Check if changelog file already exists
         id: exists
         run: |
-          FILE="website/_posts/${{ steps.release.outputs.date }}-${{ steps.release.outputs.version }}.md"
+          FILE="website/_includes/${{ steps.release.outputs.version }}.md"
           if [ -f "$FILE" ]; then
             echo "exists=true" >> $GITHUB_OUTPUT
           else
             echo "exists=false" >> $GITHUB_OUTPUT
           fi
+
+      - name: Create changelog file
+        run: |
+          BODY=$(echo "${{ steps.release.outputs.body }}" | sed '1{/^#/d}')
+
+          echo "$BODY" >> website/_changelogs/$VERSION.md
+
+      - name: Create changelog article file
+        run: |
+          export VERSION="${{ steps.release.outputs.version }}"
+          export DATE="${{ steps.release.outputs.date }}"
+
+          envsubst < website/.github/changelog-article-template.md \
+            > "website/_changelogs/$VERSION.md"
 
       - name: Fetch previous release tag
         id: previous

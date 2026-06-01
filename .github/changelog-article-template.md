@@ -5,4 +5,4 @@ date: $DATE
 excerpt: "Changelog for Healthy $VERSION."
 ---
 
-$BODY
+{% include changelogs/$VERSION.md %}
