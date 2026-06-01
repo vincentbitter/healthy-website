@@ -1,0 +1,8 @@
+{
+	"scripts": {
+		"postinstall": "cp -r node_modules/@tabler/icons-webfont/dist/fonts assets/css/ && cp node_modules/@tabler/icons-webfont/dist/tabler-icons.min.css assets/css/"
+	},
+	"dependencies": {
+		"@tabler/icons-webfont": "^3.44.0"
+	}
+}

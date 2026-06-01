@@ -1,1 +1,6 @@
+/.pnpm-store
+/node_modules
+
 /_site
+/assets/css/fonts
+/assets/css/*.min.css

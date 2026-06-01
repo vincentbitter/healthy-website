@@ -7,6 +7,15 @@ h2 {
   margin-bottom: $space-md;
 }
 
+h3.label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #777;
+  margin-bottom: 1.25rem;
+}
+
 .subtle {
   color: $text-light;
   font-size: $fs-sm;

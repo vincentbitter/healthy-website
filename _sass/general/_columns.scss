@@ -1,12 +1,24 @@
 @use "variables" as *;
 @use "mixins" as *;
 
-.columns-3 {
+.columns-2,
+.columns-3,
+.columns-4 {
     display: grid;
     gap: $space-lg;
     grid-template-columns: 1fr;
+}
 
-    @include desktop {
+@include desktop {
+    .columns-2 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .columns-3 {
         grid-template-columns: repeat(3, 1fr);
+    }
+
+    .columns-4 {
+        grid-template-columns: repeat(4, 1fr);
     }
 }

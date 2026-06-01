@@ -5,7 +5,7 @@
     4000,
     4001
   ],
-  "postCreateCommand": "npm install -g browser-sync && bundle install",
+  "postCreateCommand": "npm install -g browser-sync && bundle install && pnpm install",
   "features": {
     "ghcr.io/devcontainers/features/node:2.0.0": {
       "version": "26.1.0"
