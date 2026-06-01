@@ -11,8 +11,6 @@ Key improvements include a robust testing infrastructure with both unit tests (P
 
 Under the hood, we've modernized our toolchain with Node.js v26, esbuild v0.28, and PHPUnit v13, while adding Renovate for automated dependency updates. These changes aren't just about keeping up-to-date - they unlock faster builds, better test reliability, and a smoother path from development to production. Whether you're contributing to Healthy or using it in your WordPress environment, this release makes everything more reliable, transparent, and enjoyable to work with.
 
-## Changes since 
+## New in this version
 
-```diff
-{% include_relative ../_changelogs/v1.0.0.md %}
-```
+{% include changelogs/v1.0.0.md %}
