@@ -11,3 +11,4 @@ $BODY
 
 ```diff
 {% include_relative ../_changelogs/$VERSION.md %}
+```
