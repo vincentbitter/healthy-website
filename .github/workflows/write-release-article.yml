@@ -73,14 +73,15 @@ jobs:
 
       - name: Create changelog file
         run: |
+          VERSION="${{ steps.release.outputs.version }}"
           BODY=$(echo "${{ steps.release.outputs.body }}" | sed '1{/^#/d}')
 
-          echo "$BODY" >> website/_changelogs/$VERSION.md
+          echo "$BODY" > "website/_includes/changelogs/$VERSION.md"
 
       - name: Create changelog article file
         run: |
-          export VERSION="${{ steps.release.outputs.version }}"
-          export DATE="${{ steps.release.outputs.date }}"
+          VERSION="${{ steps.release.outputs.version }}"
+          DATE="${{ steps.release.outputs.date }}"
 
           envsubst < website/.github/changelog-article-template.md \
             > "website/_changelogs/$VERSION.md"
